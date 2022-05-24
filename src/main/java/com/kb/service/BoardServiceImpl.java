@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kb.domain.BoardVO;
+import com.kb.domain.Criteria;
 import com.kb.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -53,4 +54,17 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getList();
 	}
 
+	@Override
+	public List<BoardVO> getListWithPaging(Criteria cri) {
+		log.info("getList........................");
+		return mapper.getListWithPaging(cri);
+	}
+
+	@Override
+	public int getListWithCnt() {
+		log.info("getList........................");
+		return mapper.getListWithCnt();
+	}
+
+	
 }

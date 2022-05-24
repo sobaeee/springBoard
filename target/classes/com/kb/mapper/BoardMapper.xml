@@ -9,6 +9,18 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		<!-- 아이디를 전달해서 결과값을 받음. -->
 		SELECT * FROM tbl_board ORDER BY bno DESC LIMIT 0, 100
 	</select>
+	
+	<select id="getListWithCnt" resultType="int">
+		SELECT count(*) FROM tbl_board
+	</select>
+	
+	<select id="getListWithPaging" resultType="com.kb.domain.BoardVO">
+		<![CDATA[
+		SELECT * FROM tbl_board ORDER BY bno DESC LIMIT #{amount} offset #{pageStart}
+		]]>
+	</select>
+
+			<!-- SELECT * FROM tbl_board ORDER BY bno DESC LIMIT 10 offset 10 -->
 
 	<insert id="insert">
 		INSERT INTO tbl_board (title, content, writer)

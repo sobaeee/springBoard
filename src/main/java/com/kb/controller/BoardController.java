@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kb.domain.BoardVO;
+import com.kb.domain.Criteria;
+import com.kb.domain.PageDTO;
 import com.kb.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -22,12 +24,20 @@ public class BoardController {
 
 	private BoardService service;
 
-	@GetMapping("list") // get 방식.
-	public void list(Model model) {
-		log.info("목록");
-		model.addAttribute("list", service.getList()); // view에다가 값을 던진다.(model을 이용)
-	}
+//	@GetMapping("list") // get 방식.
+//	public void list(Model model) {
+//		log.info("목록");
+//		model.addAttribute("list", service.getList()); // view에다가 값을 던진다.(model을 이용)
+//	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+
+	public void list(Criteria cri, Model model) {
+		log.info(cri);
+		model.addAttribute("list", service.getListWithPaging(cri));
+		model.addAttribute("pageMaker", new PageDTO(service.getListWithCnt(), cri));
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 
 	public void register() {
