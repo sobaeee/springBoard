@@ -102,12 +102,12 @@
 								<div class="media">
 									<div class="media-left">
 										<div class="avatar avatar-xs avatar-circle">
-											<img src="/resources/assets/images/221.jpg" alt=""> <i
+											<img src="/resources/assets/images/111.jpg" alt=""> <i
 												class="status status-online"></i>
 										</div>
 									</div>
 									<div class="media-body">
-										<h5 class="media-heading">John Doe</h5>
+										<h5 class="media-heading">JIMI</h5>
 										<small class="media-meta">Active now</small>
 									</div>
 								</div>
@@ -123,7 +123,7 @@
 										</div>
 									</div>
 									<div class="media-body">
-										<h5 class="media-heading">John Doe</h5>
+										<h5 class="media-heading">JIMI</h5>
 										<small class="media-meta">2 hours ago</small>
 									</div>
 								</div>
@@ -197,14 +197,14 @@
 				<div class="media-left">
 					<div class="avatar avatar-md avatar-circle">
 						<a href="javascript:void(0)"><img class="img-responsive"
-							src="/resources/assets/images/221.jpg" alt="avatar" /></a>
+							src="/resources/assets/images/111.jpg" alt="avatar" /></a>
 					</div>
 					<!-- .avatar -->
 				</div>
 				<div class="media-body">
 					<div class="foldable">
 						<h5>
-							<a href="javascript:void(0)" class="username">John Doe</a>
+							<a href="javascript:void(0)" class="username">JIMI</a>
 						</h5>
 						<ul>
 							<li class="dropdown"><a href="javascript:void(0)"
