@@ -15,9 +15,9 @@
 
 <div class="col-md-12">
 	<div class="widget p-lg">
-		<h4 style="display: inline;" class="m-b-lg">Board List Page</h4>
+		<h4 style="display: inline;" class="m-b-lg">member List Page</h4>
 		<a href="register" style="float: right" class="btn btn-success"
-			role="button">Register New Board</a>
+			role="button">Register New member</a>
 		<p class="m-b-lg docs">
 			<!-- Add <code>.table-hover</code> to enable a hover state on table rows within a <code>&lt;tbody&gt;</code>. -->
 		</p>
@@ -26,22 +26,23 @@
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>수정일</th>
+					<th>회원명</th>
+					<th>학교명</th>
+					<th>학년반</th>
+					<th>전화번호</th>
+					<th>가입일</th>
 				</tr>
-				<!-- 목록의 수는 boardmapper.xml 에서 수량을 늘리거나 줄일 수 있음 -->
+				<!-- 목록의 수는 membermapper.xml 에서 수량을 늘리거나 줄일 수 있음 -->
 			</thead>
-			<c:forEach items="${list}" var="board">
+			<c:forEach items="${list}" var="member">
 				<tr>
-					<td>${board.bno}</td>
-					<td><a href="get?bno=${board.bno}">${board.title}</a></td>
-					<td>${board.writer}</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-							value="${board.regdate}" /></td>
+					<td>${member.num}</td>
+					<td><a href="get?num=${member.num}">${member.uname}</a></td>
+					<td>${member.schoolname}</td>
+					<td>${member.gradeclass}</td>
+					<td>${member.uid}</td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
-							value="${board.updatedate}" /></td>
+							value="${member.joindate}" /></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -52,8 +53,8 @@
 				<form>
 					<select name="type" class="form-control" style="float:left; width:20%; height:32px;">
 					<option value="">전체</option>
-					<option value="title" ${pageMaker.cri.type == "title"?"selected='selected'":""}>제목</option>
-					<option value="content" ${pageMaker.cri.type == "content"?"selected='selected'":""}>내용</option>
+					<option value="uname" ${pageMaker.cri.type == "uname"?"selected='selected'":""}>회원명</option>
+					<%-- <option value="content" ${pageMaker.cri.type == "content"?"selected='selected'":""}>내용</option> --%>
 					</select> 
 					<input type="text" name="keyword" placeholder="검색어를 입력하세요." value="${pageMaker.cri.keyword}" class="form-control" style="float:left; width:50%; height:32px;">
 					<button class="btn btn-default">검색</button>

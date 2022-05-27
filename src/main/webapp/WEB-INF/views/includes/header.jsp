@@ -10,7 +10,7 @@
 <meta name="description" content="Admin, Dashboard, Bootstrap" />
 <link rel="shortcut icon" sizes="196x196"
 	href="/resources/assets/images/logo.png">
-<title>Infinity - Bootstrap Admin Template</title>
+<title>게시판</title>
 
 <link rel="stylesheet"
 	href="/resources/libs/bower/font-awesome/css/font-awesome.min.css">

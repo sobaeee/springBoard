@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kb.domain.BoardVO;
-import com.kb.domain.Criteria;
+import com.kb.domain.BoardCriteria;
 import com.kb.mapper.BoardMapper;
 
 import lombok.Setter;
@@ -34,7 +34,10 @@ public class BoardServiceImplTests {
 	
 	@Test
 		public void getListWithPaging() {
-			Criteria cri = new Criteria();
+			BoardCriteria cri = new BoardCriteria();
+			cri.setType("title");
+			//cri.setType("content");
+			cri.setKeyword("금요일");
 			service.getListWithPaging(cri);
 		}
 	

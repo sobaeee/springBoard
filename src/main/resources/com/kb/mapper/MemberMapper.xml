@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.mapper.MemberMapper">
+	<!-- 자바 파일과 xml을 연결 시켜줘야함. -->
+	<select id="getList" resultType="com.kb.domain.MemberVO">
+		<!-- 아이디를 전달해서 결과값을 받음. -->
+		SELECT * FROM tbl_member ORDER BY num DESC LIMIT 0, 100
+	</select>
+	
+	<select id="getListWithCnt" resultType="int">
+		SELECT count(*) FROM tbl_member
+		WHERE 1=1
+		<choose>
+			<when test = "type == 'uname'">
+			AND uname LIKE concat('%',#{keyword},'%')
+			</when>
+			<!-- <when test = "type == 'content'">
+			AND content LIKE concat('%',#{keyword},'%')
+			</when> -->
+		</choose>
+	</select>
+	
+	<select id="getListWithPaging" resultType="com.kb.domain.MemberVO">
+		<![CDATA[
+		SELECT * FROM tbl_member
+		WHERE 1=1
+		]]> 
+		<choose>
+		<when test = "type == 'uname'">
+		AND uname LIKE concat('%',#{keyword},'%')
+		</when>
+		<!-- <when test = "type == 'content'">
+		AND content LIKE concat('%',#{keyword},'%')
+		</when> -->
+		</choose>
+		<![CDATA[
+		ORDER BY num DESC 
+		LIMIT #{amount} offset #{pageStart}
+		]]> 
+	</select>
+
+			<!-- SELECT * FROM tbl_member ORDER BY num DESC LIMIT 10 offset 10 -->
+
+	<insert id="insert">
+		INSERT INTO tbl_member (uname, schoolname, gradeclass, uid, upw, route, boardingplace, joindate)
+		VALUES
+		(#{uname}, #{schoolname}, #{gradeclass}, #{uid}, #{upw}, #{route}, #{boardingplace},now())
+	</insert>
+
+	<select id="read" resultType="com.kb.domain.MemberVO">
+		<!-- 아이디를 전달해서 결과값을 받음. -->
+		SELECT * FROM tbl_member WHERE num = #{num}
+	</select>
+
+	<update id="update">
+		UPDATE tbl_member SET uname = #{uname},
+							schoolname = #{schoolname},
+							gradeclass = #{gradeclass},
+							uid = #{uid},
+							upw = #{upw},
+							route = #{route},
+							boardingplace = #{boardingplace}
+		WHERE num = #{num}
+	</update>
+	
+	
+	<delete id="delete">
+	DELETE FROM tbl_member WHERE num = #{num}
+	</delete>
+</mapper>

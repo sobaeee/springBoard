@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kb.domain.BoardVO;
+import com.kb.domain.MemberCriteria;
+import com.kb.domain.MemberVO;
 import com.kb.domain.BoardCriteria;
 import com.kb.mapper.BoardMapper;
+import com.kb.mapper.MemberMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -17,54 +20,52 @@ import lombok.extern.log4j.Log4j;
 @Service
 @Log4j
 @AllArgsConstructor
-public class BoardServiceImpl implements BoardService {
-	//BoardServiceImpl 마우스를 위에 올리면 <Add unimplemented methods> 를 클릭하면
-	//Override가 아래에 다 생성이 된다.
+public class MemberServiceImpl implements MemberService {
 	
 	@Setter(onMethod_ = @Autowired)
-	private BoardMapper mapper;
+	private MemberMapper mapper;
 	
 	
-	
-
 	@Override
-	public void register(BoardVO board) {
+	public void register(MemberVO board) {
 		log.info("register");
 		mapper.insert(board);
+		
 	}
 
 	@Override
-	public BoardVO get(int bno) {
-		return mapper.read(bno);
+	public MemberVO get(int num) {
+		return mapper.read(num);
 	}
 
 	@Override
-	public boolean modify(BoardVO board) {
+	public boolean modify(MemberVO board) {
 		return mapper.update(board) == 1;
 	}
 
 	@Override
-	public boolean remove(int bno) {
-		return mapper.delete(bno) == 1;
+	public boolean remove(int num) {
+		return mapper.delete(num) == 1;
 	}
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<MemberVO> getList() {
 		log.info("getList........................");
 		return mapper.getList();
 	}
 
 	@Override
-	public List<BoardVO> getListWithPaging(BoardCriteria cri) {
+	public List<MemberVO> getListWithPaging(MemberCriteria cri) {
 		log.info("getList........................");
 		return mapper.getListWithPaging(cri);
 	}
 
 	@Override
-	public int getListWithCnt(BoardCriteria cri) {
+	public int getListWithCnt(MemberCriteria cri) {
 		log.info("getList........................");
 		return mapper.getListWithCnt(cri);
 	}
-
+	
+	
 	
 }
