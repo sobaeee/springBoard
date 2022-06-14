@@ -29,7 +29,7 @@ public class BoardMapperTests {
 		log.info(mapper.getList());
 	}
 	
-	@Test
+	//@Test
 	public void getListWithPaging() {
 		BoardCriteria cri = new BoardCriteria();
 		cri.setPageNum(1);
@@ -41,7 +41,7 @@ public class BoardMapperTests {
 		list.forEach(board -> log.info(board));
 	}
 
-	// @Test
+	@Test
 	public void insert() {
 
 		BoardVO board = new BoardVO();

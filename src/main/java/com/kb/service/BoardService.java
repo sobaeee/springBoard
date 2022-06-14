@@ -3,6 +3,7 @@ package com.kb.service;
 import java.util.List;
 
 import com.kb.domain.BoardVO;
+import com.kb.domain.AttachFileDTO;
 import com.kb.domain.BoardCriteria;
 
 public interface BoardService {
@@ -20,4 +21,6 @@ public interface BoardService {
 	public List<BoardVO> getListWithPaging(BoardCriteria cri);
 
 	public int getListWithCnt(BoardCriteria cri);
+
+	boolean remove(BoardVO board);
 }

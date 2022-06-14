@@ -41,7 +41,7 @@
 					<td>${member.schoolname}</td>
 					<td>${member.gradeclass}</td>
 					<td>${member.uid}</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd"
+					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" 
 							value="${member.joindate}" /></td>
 				</tr>
 			</c:forEach>
