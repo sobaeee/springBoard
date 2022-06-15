@@ -6,7 +6,12 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="loginSuccess" class="com.kb.security.LoginSuccessHandler"></bean>
+	<!-- <bean id="passwordEncoder" class="com.kb.security.NoopPasswordEncoder"></bean> -->
+	<bean id="beryptPasswordEncoder" 
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	
+	<bean id="customUserDetailsService" 
+	class="com.kb.security.CustomUserDetailsService"></bean>
 	
 	<!-- 로그인하는 폼 모양 -->
 	<security:http>
@@ -17,9 +22,11 @@
 	
 	<security:intercept-url pattern="/test/admin" access="hasRole('ROLE_ADMIN')"/>
 	
-		<security:form-login login-page="/customLogin" authentication-success-handler-ref="loginSuccess"/> 
+	<security:form-login login-page="/customLogin" authentication-success-handler-ref="loginSuccess"/> 
 		
-		
+	<security:logout logout-url="/customLogout" invalidate-session="true"/>
+	
+	<!-- invalidate : 종료 시킨다는 것 -->
 		
 		<security:access-denied-handler error-page="/error_page/err_403"/>
 		
@@ -28,11 +35,19 @@
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<!-- <security:jdbc-user-service data-source-ref="dataSource" /> -->
+<!-- 			users-by-username-query="SELECT uid username, upw password, '1' FROM tbl_member WHERE uid = ?"
+			authorities-by-username-query="SELECT uid, authority FROM tbl_author WHERE uid = ?"/> -->
+			
+			<security:password-encoder ref="beryptPasswordEncoder"/>
+			
+			<!-- <security:password-encoder ref="passwordEncoder"/> -->
+		
+			<!-- <security:user-service>
 				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
 				<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
-			</security:user-service>
+			</security:user-service> -->
 		</security:authentication-provider>
 	
 	</security:authentication-manager>

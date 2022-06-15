@@ -27,6 +27,14 @@ public class MemberMapperTests {
 		log.info(mapper.getList());
 	}
 	
+	@Test
+	public void testRead() {
+		MemberVO vo = mapper.readLogin("admin9");
+		log.info(vo);
+	}
+	
+	
+	
 	//@Test
 	public void getListWithPaging() {
 		MemberCriteria cri = new MemberCriteria();

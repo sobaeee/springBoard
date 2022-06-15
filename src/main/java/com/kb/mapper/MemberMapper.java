@@ -17,6 +17,8 @@ public interface MemberMapper {
 	
 	public MemberVO read(int num);
 	
+	public MemberVO readLogin(String userid);
+	
 	public int update(MemberVO board);
 	
 	public int delete(int num);

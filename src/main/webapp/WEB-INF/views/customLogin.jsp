@@ -46,7 +46,7 @@
 				<label for="keep_me_logged_in">Keep me signed in</label>
 			</div>
 		</div>
-		<input type="submit" class="btn btn-primary" value="SING IN">
+		<input type="submit" class="btn btn-primary" value="SIGN IN">
 		
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>

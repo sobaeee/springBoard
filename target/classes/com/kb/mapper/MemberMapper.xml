@@ -47,12 +47,33 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<insert id="insert">
 		INSERT INTO tbl_member (uname, schoolname, gradeclass, uid, upw, route, boardingplace, joindate)
 		VALUES
-		(#{uname}, #{schoolname}, #{gradeclass}, #{uid}, #{upw}, #{route}, #{boardingplace},now())
+		(#{uname}, #{schoolname}, #{gradeclass}, #{uid}, sha1(#{upw}), #{route}, #{boardingplace},now())
 	</insert>
 
 	<select id="read" resultType="com.kb.domain.MemberVO">
 		<!-- 아이디를 전달해서 결과값을 받음. -->
 		SELECT * FROM tbl_member WHERE num = #{num}
+	</select>
+	
+	<resultMap type="com.kb.domain.MemberVO" id="memberMap">
+		<id property="uid" column="uid" />
+		<result property="uid" column="uid"/>
+		<result property="upw" column="upw"/>
+		<result property="uname" column="uname"/>
+		<collection property="authList" resultMap="authMap"></collection>
+	</resultMap>
+	
+	<resultMap type="com.kb.domain.AuthorVO" id="authMap">
+		<result property="uid" column="uid"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+	
+	
+	<select id="readLogin" resultMap="memberMap">
+		SELECT tm.*, ta.authority
+		FROM tbl_member as tm JOIN tbl_author as ta
+		ON tm.uid = ta.uid
+		WHERE tm.uid = #{userid}
 	</select>
 
 	<update id="update">
@@ -60,7 +81,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 							schoolname = #{schoolname},
 							gradeclass = #{gradeclass},
 							uid = #{uid},
-							upw = #{upw},
+							upw = sha1(#{upw}),
 							route = #{route},
 							boardingplace = #{boardingplace}
 		WHERE num = #{num}
