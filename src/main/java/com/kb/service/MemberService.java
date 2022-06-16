@@ -5,6 +5,7 @@ import java.util.List;
 import com.kb.domain.BoardVO;
 import com.kb.domain.MemberCriteria;
 import com.kb.domain.MemberVO;
+import com.kb.domain.AuthorVO;
 import com.kb.domain.BoardCriteria;
 
 public interface MemberService {
@@ -22,4 +23,8 @@ public interface MemberService {
 	public List<MemberVO> getListWithPaging(MemberCriteria cri);
 
 	public int getListWithCnt(MemberCriteria cri);
+
+	public List<AuthorVO> readAuthsByUid(String uid);
+
+	public void insertAuthByUid(AuthorVO vo);
 }

@@ -13,13 +13,13 @@ public interface MemberMapper {
 	
 	public List<MemberVO> getListWithPaging(MemberCriteria cri);
 	
-	public void insert(MemberVO board);
+	public void insert(MemberVO member);
 	
 	public MemberVO read(int num);
 	
 	public MemberVO readLogin(String userid);
 	
-	public int update(MemberVO board);
+	public int update(MemberVO member);
 	
 	public int delete(int num);
 

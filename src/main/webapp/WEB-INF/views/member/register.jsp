@@ -21,8 +21,11 @@
 		</p>
 		
 		<div class="panel-body">
+			
 			<form method="post" action="register">
 			<!-- 많은 내용을 보낼때면 post방식으로 --> <!-- 같은 페이지로 가기 때문에 register = 빈값 = /board/register 셋 중에 아무거나 해도 괜찮다. -->
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" name="authority" value="ROLE_MEMBER"/>
 			<div class="form-group">
 					<label>회원명</label><input type="text" name="uname" id="uname" class="form-control" value="" required="required">
 				</div>
@@ -34,7 +37,7 @@
 					<label>학년반</label><input type="text" name="gradeclass" id="gradeclass" class="form-control" value="" required="required">
 				</div>
 				<div class="form-group">
-					<label>전화번호</label><input type="text" name="uid" id="uid" class="form-control" value="" required="required">
+					<label>아이디</label><input type="text" name="uid" id="uid" class="form-control" value="" required="required">
 				</div>
 				<div class="form-group">
 					<label>비밀번호</label><input type="password" name="upw" id="upw" class="form-control" value="" required="required">

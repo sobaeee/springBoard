@@ -8,16 +8,14 @@
 <jsp:include page="../includes/header.jsp"></jsp:include>
 
 <div class="col-md-12">
-	<h4 class="m-b-lg">Tables</h4>
+	<h4 class="m-b-lg">Member Authority List Page</h4>
 </div>
 <!-- END column -->
 
 
 <div class="col-md-12">
 	<div class="widget p-lg">
-		<h4 style="display: inline;" class="m-b-lg">member List Page</h4>
-		<a href="register" style="float: right" class="btn btn-success"
-			role="button">Register New member</a>
+		<h4 style="display: inline;" class="m-b-lg">Member Authority List Page</h4>
 		<p class="m-b-lg docs">
 			<!-- Add <code>.table-hover</code> to enable a hover state on table rows within a <code>&lt;tbody&gt;</code>. -->
 		</p>
@@ -26,16 +24,21 @@
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>회원명</th>
-					<th>학교명</th>
-					<th>학년반</th>
-					<th>전화번호</th>
-					<th>가입일</th>
+					<th>회원아이디</th>
+					<th>권한</th>
 					<th>권한관리</th>
-				</tr>
+				</tr></thead>
+				<c:forEach items="${list}" var="author" varStatus="num">
+					<tr>
+						<td>${num.count}</td>
+						<td>${author.uid}</td>
+						<td>${author.authority}</td>
+						<td></td>
+					</tr>
+				</c:forEach>
 				<!-- 목록의 수는 membermapper.xml 에서 수량을 늘리거나 줄일 수 있음 -->
-			</thead>
-			<c:forEach items="${list}" var="member">
+			
+			<%-- <c:forEach items="${list}" var="member">
 				<tr>
 					<td>${member.num}</td>
 					<td><a href="get?num=${member.num}">${member.uname}</a></td>
@@ -46,20 +49,22 @@
 							value="${member.joindate}" /></td>
 					<td><a href="getMemberAuths?uid=${member.uid}">권한추가/삭제</a></td>
 				</tr>
-			</c:forEach>
+			</c:forEach> --%>
 		</table>
 
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-7 pagination">
-				<form>
-					<select name="type" class="form-control" style="float:left; width:20%; height:32px;">
-					<option value="">전체</option>
-					<option value="uname" ${pageMaker.cri.type == "uname"?"selected='selected'":""}>회원명</option>
-					<%-- <option value="content" ${pageMaker.cri.type == "content"?"selected='selected'":""}>내용</option> --%>
+				<form method="post" action="getMemberAuths">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  <!-- post방식으로 주려면 토큰을 던져줘야한다. -->
+				<input type="hidden" name="uid" value="${uid}"/>
+					<select name="authority" class="form-control" style="float:left; width:40%; height:32px;">
+					<option value="">권한을 추가하세요.</option>
+					<option value="ROLE_ADMIN">관리자</option>
+					<option value="ROLE_MEMBER">운영자</option>
+					<option value="ROLE_USER">사용자</option>
 					</select> 
-					<input type="text" name="keyword" placeholder="검색어를 입력하세요." value="${pageMaker.cri.keyword}" class="form-control" style="float:left; width:50%; height:32px;">
-					<button class="btn btn-default">검색</button>
+					<button class="btn btn-default btn-sm">권한추가</button>
 					</form>
 				</div>
 				<div class="col-xs-5" style="text-align: right">

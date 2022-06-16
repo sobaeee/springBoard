@@ -1,5 +1,8 @@
 package com.kb.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kb.domain.MemberVO;
+import com.kb.domain.AuthorVO;
 import com.kb.domain.MemberCriteria;
 import com.kb.domain.MemberPageDTO;
 import com.kb.service.MemberService;
@@ -49,8 +53,21 @@ public class MemberController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 
-	public String register(MemberVO board, RedirectAttributes rttr) {
-		service.register(board);
+	public String register(MemberVO member, RedirectAttributes rttr) {
+		
+		
+		//내용에 넣을 것을 정해야함
+		List<AuthorVO> list = new ArrayList<AuthorVO>();
+		
+		AuthorVO authorvo = new AuthorVO();
+		authorvo.setUid(member.getUid());
+		authorvo.setAuthority("ROLE_MEMBER");
+		
+		list.add(authorvo);
+		
+		member.setAuthList(list);
+		
+		service.register(member);
 
 		return "redirect:/member/list";
 	}
@@ -64,13 +81,13 @@ public class MemberController {
 
 	@RequestMapping(value = "/get", method = RequestMethod.POST)
 
-	public String get(MemberVO board) {
+	public String get(MemberVO member) {
 
-		boolean result = service.modify(board);
+		boolean result = service.modify(member);
 		if (result) {
 			return "redirect:/member/list";
 		} else {
-			return "redirect:/member/get?num=" + board.getNum();
+			return "redirect:/member/get?num=" + member.getNum();
 		}
 
 	}
@@ -78,6 +95,7 @@ public class MemberController {
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 
 	public String remove(@RequestParam("num") int num) {
+		
 		service.remove(num);
 
 		return "redirect:/member/list";
@@ -85,9 +103,31 @@ public class MemberController {
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 
-	public String remove(MemberVO board) {
-		service.remove(board.getNum());
+	public String remove(MemberVO member) {
+		
+		service.remove(member.getNum());
 
 		return "redirect:/member/list";
+	}
+	
+	
+	@RequestMapping(value = "/getMemberAuths", method = RequestMethod.GET)
+
+	public String readAuthsByUid(@RequestParam("uid") String uid, Model model) {
+		
+		List<AuthorVO> list = service.readAuthsByUid(uid);
+		model.addAttribute("list", list);
+		model.addAttribute("uid", uid);
+
+		return "member/authList";
+	}
+	
+	@RequestMapping(value = "/getMemberAuths", method = RequestMethod.POST)
+
+	public String insertAuthByUid(AuthorVO vo) {
+		
+		service.insertAuthByUid(vo);
+		
+		return "redirect:/member/getMemberAuths?uid="+vo.getUid();
 	}
 }

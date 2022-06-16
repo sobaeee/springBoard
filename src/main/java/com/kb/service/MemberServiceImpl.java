@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.kb.domain.BoardVO;
+import com.kb.domain.AuthorVO;
 import com.kb.domain.MemberCriteria;
 import com.kb.domain.MemberVO;
-import com.kb.domain.BoardCriteria;
-import com.kb.mapper.BoardMapper;
+import com.kb.mapper.AuthorMapper;
 import com.kb.mapper.MemberMapper;
 
 import lombok.AllArgsConstructor;
@@ -25,11 +25,16 @@ public class MemberServiceImpl implements MemberService {
 	@Setter(onMethod_ = @Autowired)
 	private MemberMapper mapper;
 	
+	@Setter(onMethod_ = @Autowired)
+	private AuthorMapper authMapper;
+	
 	
 	@Override
-	public void register(MemberVO board) {
+	@Transactional
+	public void register(MemberVO member) {
 		log.info("register");
-		mapper.insert(board);
+		mapper.insert(member);
+		authMapper.insert(member.getAuthList().get(0));
 		
 	}
 
@@ -39,8 +44,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean modify(MemberVO board) {
-		return mapper.update(board) == 1;
+	public boolean modify(MemberVO member) {
+		return mapper.update(member) == 1;
 	}
 
 	@Override
@@ -64,6 +69,21 @@ public class MemberServiceImpl implements MemberService {
 	public int getListWithCnt(MemberCriteria cri) {
 		log.info("getList........................");
 		return mapper.getListWithCnt(cri);
+	}
+
+	@Override
+	public List<AuthorVO> readAuthsByUid(String uid) {
+		
+		List<AuthorVO> list = authMapper.readAuthsByUid(uid);
+		
+		return list;
+		
+	}
+
+	@Override
+	public void insertAuthByUid(AuthorVO vo) {
+		authMapper.insert(vo);
+		
 	}
 	
 	

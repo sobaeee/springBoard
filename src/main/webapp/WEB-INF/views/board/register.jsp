@@ -22,6 +22,7 @@
 
 		<div class="panel-body">
 			<form method="post" action="register" enctype="multipart/form-data">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<!-- 많은 내용을 보낼때면 post방식으로 -->
 				<!-- 같은 페이지로 가기 때문에 register = 빈값 = /board/register 셋 중에 아무거나 해도 괜찮다. -->
 				<div class="form-group">

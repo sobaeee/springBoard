@@ -26,18 +26,22 @@
 				<!-- 많은 내용을 보낼때면 post방식으로 -->
 				<!-- 같은 페이지로 가기 때문에 register = 빈값 = /board/register 셋 중에 아무거나 해도 괜찮다. -->
 				<input type="hidden" name="num" id="num" value="${member.num}">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 				<div class="form-group">
 					<label>회원명</label><input type="text" name="uname" id="uname"
 						class="form-control" value="${member.uname}" required="required">
 				</div>
 				<div class="form-group">
-					<label>학교명</label>
-					<input name="schoolname" id="schoolname" class="form-control" value="${member.schoolname}"  required="required">
+					<label>학교명</label> <input name="schoolname" id="schoolname"
+						class="form-control" value="${member.schoolname}"
+						required="required">
 					<!-- textarea 크기 고정 => style="resize:none;" 추가 -->
 				</div>
 				<div class="form-group">
-					<label>학년반</label><input type="text" name="gradeclass" id="gradeclass"
-						class="form-control" value="${member.gradeclass}" required="required">
+					<label>학년반</label><input type="text" name="gradeclass"
+						id="gradeclass" class="form-control" value="${member.gradeclass}"
+						required="required">
 				</div>
 				<div class="form-group">
 					<label>전화번호</label><input type="text" name="uid" id="uid"
@@ -52,8 +56,9 @@
 						class="form-control" value="${member.route}" required="required">
 				</div>
 				<div class="form-group">
-					<label>탑승장소</label><input type="text" name="boardingplace" id="boardingplace"
-						class="form-control" value="${member.boardingplace}" required="required">
+					<label>탑승장소</label><input type="text" name="boardingplace"
+						id="boardingplace" class="form-control"
+						value="${member.boardingplace}" required="required">
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">글수정</button>
@@ -67,17 +72,17 @@
 <!-- END column -->
 
 <script>
-$(document).ready(function(){
-	$("#btn_del").on("click",function(){
-		if(confirm("정말로 삭제하시겠습니까")){
-			$("#frm").attr("action", "remove"); 
-			$("#frm").submit();
-		
-		console.log("삭제버튼"+res);
-		}
+	$(document).ready(function() {
+		$("#btn_del").on("click", function() {
+			if (confirm("정말로 삭제하시겠습니까")) {
+				$("#frm").attr("action", "remove");
+				$("#frm").submit();
+
+				console.log("삭제버튼" + res);
+			}
+		});
+
 	});
-	
-});
 </script>
 
 <!-- JSP 액션태그 include -->
