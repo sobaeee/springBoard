@@ -34,8 +34,10 @@ public class MemberServiceImpl implements MemberService {
 	public void register(MemberVO member) {
 		log.info("register");
 		mapper.insert(member);
-		authMapper.insert(member.getAuthList().get(0));
-		
+		if(member.getAuthList() != null) {
+		authMapper.insert(member.getAuthList().get(0));   
+		//↑이 한 줄이 있으면 restcontroller에 create가 작동을 안함. 주석시 작동.
+		}
 	}
 
 	@Override

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!-- 백업 -->
 <!-- JSP include -->
 <%-- <%@ include file="../includes/header.jsp" %> --%>
 <!-- JSP 액션태그 include -->
@@ -22,7 +23,7 @@
 		
 		<div class="panel-body">
 			
-			<form method="post" action="register" id="tmpSendFrm">
+			<form method="post" action="register">
 			<!-- 많은 내용을 보낼때면 post방식으로 --> <!-- 같은 페이지로 가기 때문에 register = 빈값 = /board/register 셋 중에 아무거나 해도 괜찮다. -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<input type="hidden" name="authority" value="ROLE_MEMBER"/>
@@ -49,7 +50,7 @@
 					<label>탑승장소</label><input type="text" name="boardingplace" id="boardingplace" class="form-control" value="" required="required">
 				</div>
 				<div class="form-group">
-					<button type="submit" id="submit" class="btn btn-primary">회원등록</button>
+					<button type="submit" class="btn btn-primary">회원등록</button>
 					<button type="button" onclick="history.go(-1);" class="btn btn-primary">취소</button>
 				</div>
 			</form>
@@ -58,40 +59,7 @@
 	<!-- .widget -->
 </div>
 <!-- END column -->
-<script>
-$(document).ready(function(){
-	$("#submit").on("click",function(e){
-		e.preventDefault();
-		
-		let uname = $("#uname").val();
-		let schoolname = $("#schoolname").val();
-		let gradeclass = $("#gradeclass").val();
-		let uid = $("#uid").val();
-		let upw = $("#upw").val();
-		let route = $("#route").val();
-		let boardingplace = $("#boardingplace").val();
-		
-		
-		$.ajax({
-			type: "POST",
-			url: '/data/members/new',	// form을 전송할 실제 파일경로
-			data: JSON.stringify({uname:uname, schoolname:schoolname, gradeclass:gradeclass, uid:uid, upw:upw,  route:route, boardingplace:boardingplace}),
-			contentType:"application/json; charset=utf-8",
-			beforeSend : function() {
-				// 전송 전 실행 코드
-			},
-			success: function (data) {
-				location.href="/member/list";
-			},
-			error: function (e) {
-				// 전송 후 에러 발생 시 실행 코드
-				console.log("ERROR : ", e);
-			}
-		});
-	});
-});
-	
-</script>
+
 
 <!-- JSP 액션태그 include -->
 <jsp:include page="../includes/footer.jsp"></jsp:include>
